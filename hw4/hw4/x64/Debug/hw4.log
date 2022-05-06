@@ -1,0 +1,5 @@
+﻿  hw4_P1.cpp
+  hw4_P2.cpp
+D:\GitHub\PIC10A\hw4\hw4\hw4_P2.cpp(14,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
+  hw4.vcxproj -> D:\GitHub\PIC10A\hw4\hw4\x64\Debug\hw4.exe
