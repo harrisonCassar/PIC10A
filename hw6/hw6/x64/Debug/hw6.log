@@ -1,0 +1,5 @@
+﻿  Character.cpp
+  main.cpp
+D:\GitHub\PIC10A\hw6\hw6\main.cpp(9,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
+  hw6.vcxproj -> D:\GitHub\PIC10A\hw6\hw6\x64\Debug\hw6.exe

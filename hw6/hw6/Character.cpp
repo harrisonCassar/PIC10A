@@ -1,49 +1,77 @@
 #include "Character.h"
-using namespace std;
 
-int main() {
+Character::Character(string newName)
+{
+	this->name = newName;
+	this->health = 20;
+	this->damage = 2;
+	this->arrows = 2;
+}
 
-	int monster_health = 10;
-	int monster_damage = 3;
+Character::Character(string newName, int newHealth, int newDamage, int newArrows)
+{
+	this->name = newName;
+	this->health = newHealth;
+	this->damage = newDamage;
+	this->arrows = newArrows;
+}
 
-	srand(time(0));
+void Character::attack(Character& target)
+{
+	// notify user of attack
+	std::cout << this->get_name() << " attacks " << target.get_name() << " doing " << this->damage << " damage!" << std::endl;
 
-	//This is the character you play
-	Character C("Hero");
+	// damage target (change resultant health)
+	target.set_health(target.get_health() - this->damage);
 
-	// This is the monster you try to defeat, the monster has 0 arrow
-	Character M("Monster", monster_health, monster_damage, 0);
+	// notify user of result of attack
+	std::cout << target.get_name() << " health: " << target.get_health() << std::endl;
+}
 
-	while (M.get_health() > 0 && C.get_health() > 0)
+void Character::rangedAttack(Character& target)
+{
+	// determine if we can attack (check arrow inventory)
+	if (this->arrows <= 0)
 	{
-		M.attack(C);
-		cout << "----------------------\n";
-		if (C.get_health() <= 0)
-			break;
-		C.display();
-		cout << "What do you do? 1 attack, 2 fire arrow, Q exit: ";
-		int choice;
-		cin >> choice;
-		if (cin.fail())
-			break;
-		switch (choice)
-		{
-		case 1:
-			C.attack(M);
-			break;
+		// notify user of attack
+		std::cout << this->get_name() << " is out of arrows!" << std::endl;
 
-		case 2:
-			C.rangedAttack(M);
-			break;
-		}
-
+		return;
 	}
-	if (M.get_health() <= 0)
-		cout << "Congratulations! You killed the monster!" << endl;
-	if (C.get_health() <= 0)
-		cout << "You have died! GAME OVER! " << endl;
 
-	cout << "Thanks for playing!" << endl;
+	// determine amount of damage to deal
+	int damage_dealt = (rand() % 5) + 1;
 
-	return 0;
+	// notify user of attack
+	std::cout << this->get_name() << " shoots " << target.get_name() << " doing " << damage_dealt << " damage!" << std::endl;
+
+	// damage target (change resultant health)
+	target.set_health(target.get_health() - damage_dealt);
+
+	// notify user of result of attack
+	std::cout << target.get_name() << " health: " << target.get_health() << std::endl;
+
+	// reduce arrow count
+	this->arrows--;
+
+}
+
+void Character::set_health(int newHealth)
+{
+	this->health = newHealth;
+}
+
+int Character::get_health() const
+{
+	return this->health;
+}
+
+string Character::get_name() const
+{
+	return this->name;
+}
+
+void Character::display() const
+{
+	std::cout << "Hero health: " << this->health << "  arrows: " << this->arrows << std::endl;
 }
